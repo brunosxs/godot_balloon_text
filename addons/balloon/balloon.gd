@@ -20,6 +20,7 @@ extends Control
 # font normal_font bold_font italics_font bold_italics_font mono_font default_color 
 
 export(String) var text = "" setget _set_text
+export (float) var typewriter_effect_time = 0 # setting to 0 makes it inactive
 export(float) var ratio = 1.0 setget _set_ratio
 export(int) var font_height_adjust = 0 setget _set_font_height_adjust
 export(int) var padding = 8 setget _set_padding
@@ -264,7 +265,7 @@ func render_text(txt):
 	var _ratio = Vector2(1.0/ratio, ratio)
 	var arr1 = txt.strip_edges().split(" ")
 	var letters = 0
-	var longString = ''
+	var longString = '' 
 	var words = []
 	lines.clear()
 	for k in arr1:
@@ -288,7 +289,7 @@ func render_text(txt):
 	var _area = font.get_string_size(longString)
 	area = float(_area.x * _area.y)
 	rad = sqrt(float(area) / PI) * 1.00 + font.get_height()
-	
+	var index = 0
 	#
 	# render text
 	#
@@ -298,7 +299,6 @@ func render_text(txt):
 	var end = words.size()
 	var spc = font.get_string_size(" ")
 	var c_rad = rad
-	
 	while w<end: #y<=rad:
 		#var corda = round(rad * cos(abs(y)/rad))
 		var f = ( rad - abs(y) ) # * _ratio.y
